@@ -28,10 +28,13 @@ describe('chatterbox', function() {
           text: 'It\'s good to be the king',
           roomname: 'lobby'
         };
-
+        // console.log($.ajax.args);
         Parse.create(message);
+
         ajaxOptions = typeof $.ajax.args[0][0] === 'object' ? $.ajax.args[0][0] : $.ajax.args[0][1];
+        // console.log(ajaxOptions);        
         expect(ajaxOptions.data).to.be.a('string');
+
         expect(ajaxOptions.contentType).to.equal('application/json');
         done();
       });
@@ -44,8 +47,10 @@ describe('chatterbox', function() {
         };
 
         Parse.create(message);
+        // console.log("sentMessage");
         ajaxOptions = typeof $.ajax.args[0][0] === 'object' ? $.ajax.args[0][0] : $.ajax.args[0][1];
         var sentMessage = JSON.parse(ajaxOptions.data);
+        // console.log(sentMessage);
         expect(sentMessage).to.deep.equal(message);
         done();
       });
@@ -72,6 +77,7 @@ describe('chatterbox', function() {
         roomname: 'lobby'
       };
       MessagesView.renderMessage(message);
+      // console.log(Array.isArray($('#chats').children()));
       expect($('#chats').children().length).to.equal(1);
     });
 
